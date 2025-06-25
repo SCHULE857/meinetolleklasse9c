@@ -50,25 +50,29 @@
       background: #e60000;
     }
 
-    /* Popup-Styles */
+    p {
+      font-size: 1.1em;
+      margin-top: 20px;
+    }
+
+    /* Popup */
     #popup {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.95);
       color: red;
       display: none;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       z-index: 9999;
+      text-align: center;
     }
 
     #popup h2 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
+      font-size: 2.2em;
+      margin-bottom: 10px;
     }
 
     #popup button {
@@ -79,22 +83,23 @@
       border-radius: 10px;
       border: none;
     }
-
   </style>
 </head>
 <body>
 
   <h1>MEME DER 9c 😈</h1>
-  <p>Jedes Mal ein neues Meme – klick drauf!</p>
+  <p>Klick auf den Button für das nächste Meme!</p>
 
-  <img id="meme" src="IMG_0597.jpeg" alt="Zufälliges Meme" />
+  <img id="meme" src="IMG_0597.jpeg" alt="Meme" />
 
   <br><br>
   <button onclick="wechsleMeme()">🔄 Nächstes Meme</button>
 
+  <p id="counter">Du hast 0 Memes geschaut.</p>
+
   <p>⚠️ Diese Memes sind streng geheim! 😎</p>
 
-  <!-- Das Fake-Popup -->
+  <!-- Popup -->
   <div id="popup">
     <h2>⚠️ DEIN LEHRER SCHAUT ZU!!!</h2>
     <p>SCHNELL TAB SCHLIESSEN!! 😱</p>
@@ -114,19 +119,31 @@
       "IMG_0605.jpeg"
     ];
 
+    let memeCount = parseInt(localStorage.getItem("memecount") || "0");
+
+    function updateCounter() {
+      document.getElementById("counter").innerText = "Du hast " + memeCount + " Memes geschaut.";
+    }
+
     function wechsleMeme() {
       const random = memes[Math.floor(Math.random() * memes.length)];
-      document.getElementById('meme').src = random;
+      document.getElementById("meme").src = random;
+      memeCount++;
+      localStorage.setItem("memecount", memeCount);
+      updateCounter();
     }
 
     function schliessePopup() {
       document.getElementById("popup").style.display = "none";
     }
 
-    // Popup erscheint nach 30 Sekunden
+    // Popup nach 30 Sekunden
     setTimeout(() => {
       document.getElementById("popup").style.display = "flex";
-    }, 30000); // 30.000 Millisekunden = 30 Sekunden
+    }, 30000);
+
+    // Zähler beim Laden aktualisieren
+    document.addEventListener("DOMContentLoaded", updateCounter);
   </script>
 
 </body>
