@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>meinetolleklasse9c – MEME PARTY</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -27,7 +27,7 @@
       to { text-shadow: 0 0 25px #ff0000, 0 0 50px #ff0000; }
     }
 
-    .meme-box img {
+    #meme {
       max-width: 90%;
       border: 5px solid red;
       border-radius: 12px;
@@ -50,39 +50,84 @@
       background: #e60000;
     }
 
-    p {
-      font-size: 1.1em;
-      margin-top: 20px;
+    /* Popup-Styles */
+    #popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: red;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
     }
+
+    #popup h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    #popup button {
+      background: white;
+      color: red;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+    }
+
   </style>
 </head>
 <body>
 
   <h1>MEME DER 9c 😈</h1>
-  <p>Jedes Mal ein neues Bild – trau dich!</p>
+  <p>Jedes Mal ein neues Meme – klick drauf!</p>
 
-  <div class="meme-box">
-    <script>
-      const memes = [
-        "IMG_0597.jpeg",
-        "IMG_0598.jpeg",
-        "IMG_0599.jpeg",
-        "IMG_0600.jpeg",
-        "IMG_0601.jpeg",
-        "IMG_0602.jpeg",
-        "IMG_0603.jpeg",
-        "IMG_0604.jpeg",
-        "IMG_0605.jpeg"
-      ];
-      const randomMeme = memes[Math.floor(Math.random() * memes.length)];
-      document.write(`<img src="${randomMeme}" alt="Zufälliges Meme">`);
-    </script>
+  <img id="meme" src="IMG_0597.jpeg" alt="Zufälliges Meme" />
+
+  <br><br>
+  <button onclick="wechsleMeme()">🔄 Nächstes Meme</button>
+
+  <p>⚠️ Diese Memes sind streng geheim! 😎</p>
+
+  <!-- Das Fake-Popup -->
+  <div id="popup">
+    <h2>⚠️ DEIN LEHRER SCHAUT ZU!!!</h2>
+    <p>SCHNELL TAB SCHLIESSEN!! 😱</p>
+    <button onclick="schliessePopup()">Ich schwöre, ich mach nix 😇</button>
   </div>
 
-  <button onclick="document.getElementById('rick').play()">🔊 Überraschung abspielen</button>
-  <audio id="rick" src="https://www.myinstants.com/media/sounds/rick-roll.mp3"></audio>
+  <script>
+    const memes = [
+      "IMG_0597.jpeg",
+      "IMG_0598.jpeg",
+      "IMG_0599.jpeg",
+      "IMG_0600.jpeg",
+      "IMG_0601.jpeg",
+      "IMG_0602.jpeg",
+      "IMG_0603.jpeg",
+      "IMG_0604.jpeg",
+      "IMG_0605.jpeg"
+    ];
 
-  <p>⚠️ Diese Seite zerstört sich nicht... aber deine Coolness vielleicht 😎</p>
+    function wechsleMeme() {
+      const random = memes[Math.floor(Math.random() * memes.length)];
+      document.getElementById('meme').src = random;
+    }
+
+    function schliessePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    // Popup erscheint nach 30 Sekunden
+    setTimeout(() => {
+      document.getElementById("popup").style.display = "flex";
+    }, 30000); // 30.000 Millisekunden = 30 Sekunden
+  </script>
 
 </body>
 </html>
